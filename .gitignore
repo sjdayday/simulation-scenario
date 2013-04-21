@@ -1,0 +1,7 @@
+bin*
+ScenarioSet_*
+scenario_root
+parms.xml
+smallParms*
+testingInput.xml
+

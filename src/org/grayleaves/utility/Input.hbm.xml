@@ -1,0 +1,10 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.smartantsgame.utility">
+	<class name="Input" table="INPUT" discriminator-value="IN">
+		<id name="id" column="INPUT_ID">
+			<generator class="native"></generator></id>
+		<discriminator column="INPUT_TYPE" type="string"/>
+		<property name="filename" column="FILENAME"></property>
+		<subclass name="PersistentInput" discriminator-value="PI"></subclass>
+ 	</class>
+</hibernate-mapping>

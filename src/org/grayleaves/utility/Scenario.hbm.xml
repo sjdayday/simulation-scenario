@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.smartantsgame.utility">
+	<class name="Scenario" table="SCENARIO" discriminator-value="SC">
+		<id name="id" column="SCENARIO_ID">
+			<generator class="native"></generator></id>
+		<discriminator column="SCENARIO_TYPE" type="string"/>
+		<property name="name" column="NAME"></property>
+		<component name="log" class="ScenarioLog">
+			<property name="filename" column="LOG_FILENAME"></property>
+			<property name="recordCount" column="LOG_RECORD_COUNT"></property>
+			<property name="customData" column="LOG_CUSTOM_DATA"></property>
+		</component>		
+		<component name="parameterPoint" class="ParameterPoint">
+			<property name="persistedMapEntryList" column="PARAMETER_POINT_MAP_ENTRY_LIST" type="string"  length="4096"></property>
+		</component>		
+		<many-to-one name="model" column="MODEL_ID" class="Model" not-null="true"></many-to-one>
+		<many-to-one name="input" column="INPUT_ID" class="Input" not-null="true"></many-to-one>
+		<many-to-one name="scenarioSet" column="SCENARIO_SET_ID" class="ScenarioSet" not-null="false"></many-to-one>
+		<!-- set not-null="false" to enable Scenario to be tested stand-alone without a ScenarioSet...reconsider --> 
+		<subclass name="SimpleScenario" discriminator-value="SS"></subclass>
+ 	</class>
+</hibernate-mapping>
