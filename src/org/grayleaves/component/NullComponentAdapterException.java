@@ -1,0 +1,29 @@
+package org.grayleaves.component;
+
+public class NullComponentAdapterException extends Exception
+{
+	private static final long serialVersionUID = 1L;
+
+	public NullComponentAdapterException()
+	{
+	}
+
+	public NullComponentAdapterException(String arg0)
+	{
+		super(arg0);
+
+	}
+
+	public NullComponentAdapterException(Throwable arg0)
+	{
+		super(arg0);
+
+	}
+
+	public NullComponentAdapterException(String arg0, Throwable arg1)
+	{
+		super(arg0, arg1);
+
+	}
+
+}
