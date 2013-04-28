@@ -1,5 +1,5 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="org.smartantsgame.utility">
+<hibernate-mapping package="org.grayleaves.utility">
 	<class name="ParameterSpace" table="PARAMETER_SPACE" >
 		<id name="id" column="PARAMETER_SPACE_ID">
 			<generator class="native"></generator></id>

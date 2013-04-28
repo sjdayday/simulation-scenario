@@ -1,5 +1,5 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="org.smartantsgame.utility">
+<hibernate-mapping package="org.grayleaves.utility">
 	<class name="ScenarioSet" table="SCENARIO_SET" >
 		<id name="id" column="SCENARIO_SET_ID">
 			<generator class="native"></generator></id>
