@@ -1,9 +1,7 @@
-4/21/13  
+5/11/13  
 
 simulation-scenario provides the core support for running simulations. 
 https://github.com/sjdayday/simulation-scenario.git 
-Other projects needed:
-  [to be listed] 
 
 Libraries:  
   log4j:  logging
@@ -17,7 +15,7 @@ Libraries:
   commons-collections:  hibernate
   antlr:  hibernate
   javassist:  hibernate
-  
+  fitlibrary:  fitlibrary [built by hand ca. 2011.  Fitlibrary was developed by Rick Mugridge:  http://sourceforge.net/apps/mediawiki/fitlibrary/index.php?title=Main_Page]  
 
 There should be no errors or warnings.  
  The lack of warnings is misleading; this project makes a lot of mis-quided use of generics (I was just learning...),
@@ -35,6 +33,9 @@ The tests in the testDatabase folder have dependencies on HSQLDB
    all simulation scenario database tests.launch (for the tests in testDatabase)
   run:  hsqldb 
   then: all simulation scenario database tests
+ 
+ The fitlibrary folder contains the ParameterSpaceFixture; use of that fixture assumes you have a working 
+ version of fitnesse as distributed by Rick Mugridge...more on that later, or contact me.
  
  Log4j: src/log4j.properties currently set to "log4j.rootLogger = debug..."; change to "log4j.rootLogger = error..." to cut back on verboseness   
         
