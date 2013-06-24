@@ -107,6 +107,7 @@ public class ParameterSpaceFixture extends DoFixture
 	{
 		buildParameter(field, String.class, String[].class);
 	}
+	@SuppressWarnings("unchecked")
 	public <P> void buildParameter(String field, Class<P> clazz, Class<?> arrayClass) throws Exception
 	{
 		this.parameterUpdater = new StaticParameterUpdater<P>(clazz, field, this.className);
@@ -130,6 +131,7 @@ public class ParameterSpaceFixture extends DoFixture
 	public <P> P[] parseStringToArrayValues(String array, Class<?> arrayClass) throws Exception
 	{
 		TypeAdapter adapter  = TypeAdapter.on(this, arrayClass);
+		@SuppressWarnings("unchecked")
 		P[] values = (P[]) adapter.parse(array);
 		return values;
 	}
@@ -205,7 +207,7 @@ public class ParameterSpaceFixture extends DoFixture
 	{
 		return null; 
 	}
-	public Result output() 
+	public Result<String> output() 
 	{
 		return null; 
 	}

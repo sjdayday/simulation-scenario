@@ -1,19 +1,14 @@
 package org.grayleaves.utility;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.apache.log4j.BasicConfigurator;
-import org.grayleaves.utility.Model;
-import org.grayleaves.utility.ModelException;
-import org.grayleaves.utility.Result;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ModelTest
 {
-	private static final String SPACE = " ";
 	private Model<String> model;
 	
 	@Before
@@ -41,6 +36,7 @@ public class ModelTest
 	public void verifyModelThrowsExceptionUponError() throws Exception
 	{
 		model.setInput(new TestingInput(-3));
+		@SuppressWarnings("unused")
 		Result<String> result = null; 
 		try
 		{

@@ -13,26 +13,7 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.grayleaves.utility.ArrayParameter;
-import org.grayleaves.utility.Constants;
-import org.grayleaves.utility.InvalidStaticParameterException;
-import org.grayleaves.utility.MockClock;
-import org.grayleaves.utility.Model;
-import org.grayleaves.utility.ModelException;
-import org.grayleaves.utility.OutputFileBuilder;
-import org.grayleaves.utility.OutputFileBuilderException;
-import org.grayleaves.utility.Parameter;
-import org.grayleaves.utility.ParameterIterator;
-import org.grayleaves.utility.RangeParameter;
-import org.grayleaves.utility.Result;
-import org.grayleaves.utility.Scenario;
-import org.grayleaves.utility.ScenarioException;
-import org.grayleaves.utility.ScenarioResult;
-import org.grayleaves.utility.SimpleScenario;
-import org.grayleaves.utility.StaticParameterUpdater;
-import org.grayleaves.utility.UnsupportedParameterException;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -100,12 +81,12 @@ public class ScenarioTest
 	{
 		buildScenario();
 		ScenarioResult<String> result = scenario.run(); 
-//		assertEquals("TestingModel from input 17\n"+ 
-//				"parameters string tom, int 6, boolean true\n"+
-//				"output:  23", result.getResult().toString()); 
-//		scenario.getLog().close(); 
+		assertEquals("TestingModel from input 17\n"+ 
+				"parameters string tom, int 6, boolean true\n"+
+				"output:  23", result.getResult().toString()); 
+		scenario.getLog().close(); 
 	}
-//	@Test
+	@Test
 	public void verifyInputsAreValidated() 
 	{
 		try
@@ -153,7 +134,7 @@ public class ScenarioTest
 		}
 
 	}
-//	@Test
+	@Test
 	public void verifyScenarioExceptionThrownIfModelThrowsModelException() throws Exception
 	{
 		buildScenario();
@@ -179,7 +160,7 @@ public class ScenarioTest
 			}
 		};
 	}
-//	@Test
+	@Test
 	public void verifyScenarioLogFileSetUpWithHeader() throws Exception
 	{
 		buildScenario(); 
@@ -187,14 +168,13 @@ public class ScenarioTest
 		assertEquals("INFO utility.ScenarioLog:  Scenario: Testing scenario   Scenario Id: 4   Date/Time:  2005_10_15__12_00_14PM ",scenario.getLog().getRecords().get(0)); 
 		scenario.getLog().close(); 
 	}
-//	@Test
+	@Test
 	public void verifyScenarioResultsAreLoggedInLogsDirectory() throws Exception
 	{
 		File file = new File("scenario_root"+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_4_2005_10_15__12_00_14PM_Testing scenario.log");
 		assertTrue(!file.exists()); 
 		buildScenario(); 
 		scenario.run(); 
-//		System.out.println(scenario.getLog().getFilename());
 		assertTrue(file.exists()); 
 		
 		assertEquals("data from object, not actual file","INFO utility.ScenarioLog:  Parameter point: Integer Name=6, String Public Name=tom, Int2 Public Name=0 ",scenario.getLog().getRecords().get(1)); 
@@ -203,7 +183,7 @@ public class ScenarioTest
 		assertEquals("INFO utility.ScenarioLog:  output:  23 ",scenario.getLog().getRecords().get(4));
 		assertEquals("INFO utility.ScenarioLog:  Scenario: Testing scenario   Scenario Id: 4   Record count: 4   some custom data=23, another=true, last=random string ",scenario.getLog().getRecords().get(5));
 	}
-//	@Test
+	@Test
 	public void verifyModelReceivesOutputFileBuilder() throws Exception
 	{
 		assertNull(model.getOutputFileBuilder()); 
@@ -224,9 +204,4 @@ public class ScenarioTest
 	}
 }
 
-//list.add(new ArrayParameter<Integer>("Integer Name", new StaticParameterUpdater<Integer>(Integer.class, "INT_PARM", "org.grayleaves.utility.TestingBean"), 
-//		new Integer[]{6, 7, 8}));
-//list.add(new ArrayParameter<String>("String Public Name", new StaticParameterUpdater<String>(String.class, "STRING_PARM", "org.grayleaves.utility.TestingBean"),
-//		new String[]{"tom", "sam"}));
-//list.add(new RangeParameter<Integer>("Int2 Public Name", new StaticParameterUpdater<Integer>(Integer.class, "INTEGER_PARM", "org.grayleaves.utility.TestingBean"),
 
