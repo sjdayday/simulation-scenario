@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.InvalidPropertiesException;
 import org.grayleaves.utility.InvalidStaticParameterException;
@@ -20,6 +23,7 @@ import org.grayleaves.utility.ScenarioSet;
 import org.grayleaves.utility.SimpleScenario;
 import org.grayleaves.utility.StaticParameterUpdater;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -31,13 +35,18 @@ public class ParameterSpaceMapperTest
 	private int scenarioId;
 	private ScenarioSet<String, TestingInput> scenarioSet;
 	private ScenarioSet<String, TestingInput> comparedScenarioSet; 
-	
+	@BeforeClass
+	public static void setUpLog4J() throws Exception
+	{
+	}
 	@Before
 	public void setUp() throws Exception
 	{
 		space = ParameterSpaceTest.buildParameterSpace();  
 		comparedSpace = ParameterSpaceTest.buildParameterSpace();
 		scenarioId = 0; 
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.ERROR);
 	}
 	@Test
 	public void verifyArgumentsCantBeNull() throws Exception

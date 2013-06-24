@@ -98,15 +98,6 @@ public class ScenarioLog<R, I>
 		{
 			throw new ScenarioException("ScenarioException.buildFileName:  IOException while creating ScenarioLog filename: "+e.getMessage());
 		} 
-//		StringBuffer sb = new StringBuffer(); 
-//		sb.append("Scenario_");
-//		sb.append(scenario.getId());
-//		sb.append("_");
-//		sb.append(buildDateTime());
-//		sb.append("_");
-//		sb.append(scenario.getName());
-//		sb.append(".log"); 
-//		setFilename(sb.toString());
 		setFilename(filename);
 	}
 	private String buildDateTime()
@@ -140,15 +131,10 @@ public class ScenarioLog<R, I>
 //		Appender app = logger.getAppender(this.toString());
 //		if (app == null) throw new RuntimeException("null app"); 
 //		throw new RuntimeException("enabled for info " + logger.isEnabledFor(Priority.INFO) +
-////				" level " + logger.getLevel().toString() +
-////				" error handler " + app.getErrorHandler() +
+//				" level " + logger.getLevel().toString() +
+//				" error handler " + app.getErrorHandler() +
 //				"enabled for info " + logger.isInfoEnabled() 
-////				"enabled for info " + logger.EnabledFor(Priority.INFO) +
-////				"enabled for info " + logger.isEnabledFor(Priority.INFO) +
-////				"enabled for info " + logger.isEnabledFor(Priority.INFO) +
-////				"enabled for info " + logger.isEnabledFor(Priority.INFO) +
-////				"enabled for info " + logger.isEnabledFor(Priority.INFO) +
-////				"enabled for info " + logger.isEnabledFor(Priority.INFO) 
+//				"enabled for info " + logger.EnabledFor(Priority.INFO) +
 //				
 //				);
 	}
@@ -200,11 +186,9 @@ public class ScenarioLog<R, I>
 	{
 		hasTrailer = true; 
 		setCustomData(customData);
-//		setRecordCount(getRecords().size()-1);
 		StringBuffer sb = appendStandardTrailer(); 
 		if (!customData.equalsIgnoreCase("")) sb.append(SPACES+customData);
 		log(sb.toString());
-//		logger.info(sb.toString()); 
 		close();
 	}
 	public void close()

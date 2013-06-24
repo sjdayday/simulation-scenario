@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.Constants;
 import org.grayleaves.utility.Input;
@@ -26,6 +28,7 @@ import org.grayleaves.utility.SimpleScenario;
 import org.grayleaves.utility.StaticParameterUpdater;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -36,17 +39,17 @@ public class ScenarioSetTest
 	private ParameterSpace parameterSpace;
 	private Model<String> model;
 	private Input input;
-	
+	@BeforeClass
+	public static void setUpLog4J() throws Exception
+	{
+	}
 	
 	@Before
 	public void setUp() throws Exception
 	{
-//		System.out.println("looking for log4j");
-//		System.out.println(this.getClass().getClassLoader().);
 		TestingFileBuilder.buildPersistentInput(); 
 		URL url = this.getClass().getClassLoader().getResource("log4j.properties");
 		if (url == null) System.out.println("log4j not found");
-//		else System.out.println(url.getPath()); 
 		setUp(new Integer[]{40, 50});
 	}
 	@After
@@ -68,6 +71,8 @@ public class ScenarioSetTest
 	{
 		TestingBean.resetForTesting(); 
 		BasicConfigurator.resetConfiguration(); 
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.ERROR);
 		model = new TestingModel<String>(); 
 		parameterSpace = buildSmallParameterSpace(ints);
 		input = new TestingInput(3); 

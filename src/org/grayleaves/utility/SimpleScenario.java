@@ -5,11 +5,9 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 public class SimpleScenario<R, I> implements Scenario<R, I>
 {
-	private static Logger logger = Logger.getLogger(SimpleScenario.class);
+//	private static Logger logger = Logger.getLogger(SimpleScenario.class);
 	
 	protected Model<R> model;
 	private int id;
@@ -24,6 +22,7 @@ public class SimpleScenario<R, I> implements Scenario<R, I>
 	private static final String SCENARIO = "SimpleScenario.run: ";
 	private static final String MUST_HAVE = SCENARIO+"Scenario must have "; 
 	private static final String BEFORE_RUN = " before it can be run.";
+	//TODO Figure out how to use Logger in this class; ScenarioLog resets the log4j configuration. 
 	public SimpleScenario()
 	{
 	}
@@ -40,7 +39,7 @@ public class SimpleScenario<R, I> implements Scenario<R, I>
 	public ScenarioResult<R> run() throws ScenarioException
 	{
 		validate();
-		logger.debug("run; finished validate, about to update model parameters for parameter point: "+parameterPoint.verboseToString());
+//		logger.debug("run; finished validate, about to update model parameters for parameter point: "+parameterPoint.verboseToString());
 		parameterPoint.updateModelParameters(); 
 		buildInput();
 		cloneOutputFileBuilder();
@@ -49,10 +48,10 @@ public class SimpleScenario<R, I> implements Scenario<R, I>
 		Result<R> result = null;
 		try
 		{
-			logger.debug("run; about to run model");
+//			logger.debug("run; about to run model");
 			result = model.run();
 			logResult(result); 
-			log.close();  //
+			log.close();  
 		} 
 		catch (ModelException e)
 		{
@@ -70,8 +69,6 @@ public class SimpleScenario<R, I> implements Scenario<R, I>
 	{
 		if (outputFileBuilder.getId() != id) outputFileBuilder = outputFileBuilder.cloneWithId(id); 
 		model.setOutputFileBuilder(outputFileBuilder);
-//		if (outputFileBuilder.getId() == id) model.setOutputFileBuilder(outputFileBuilder);
-//		else model.setOutputFileBuilder(outputFileBuilder.cloneWithId(id));
 	}
 	private void logResult(Result<R> result)
 	{
@@ -87,7 +84,6 @@ public class SimpleScenario<R, I> implements Scenario<R, I>
 		if (input.getFilename() != null)
 		{
 			Persister<Input> persister = new SimplePersister<Input>();  
-//			persister.setPersistenceFilename(input.getFilename());
 			Input newInput;
 			try
 			{
@@ -95,7 +91,6 @@ public class SimpleScenario<R, I> implements Scenario<R, I>
 			} 
 			catch (PersistenceException e)
 			{
-				System.out.println(e.getMessage());
 				throw new ScenarioException(SCENARIO+"FileNotFoundException attempting to build input from persisted Input filename: "+input.getFilename()); 
 			}
 			model.setInput(newInput);  

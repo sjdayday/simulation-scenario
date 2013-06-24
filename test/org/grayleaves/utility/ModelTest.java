@@ -41,29 +41,15 @@ public class ModelTest
 	public void verifyModelThrowsExceptionUponError() throws Exception
 	{
 		model.setInput(new TestingInput(-3));
+		Result<String> result = null; 
 		try
 		{
-			@SuppressWarnings("unused")
-			Result<String> result = model.run();
+			result = model.run();
 			fail();
 		}
 		catch (ModelException e)
 		{
 			assertEquals("TestingModel.run: negative input is invalid.", e.getMessage());
 		}
-		BufferedReader br = model.getLog(); 
-		br.readLine();
-		assertEquals("ERROR utility.TestingModel:  TestingModel.run: negative input is invalid."+SPACE, br.readLine());
-	}
-	@Test
-	public void verifyModelWillLogItsActivity() throws Exception
-	{
-		model.run(); 
-		BufferedReader br = model.getLog(); 
-		assertEquals("INFO utility.TestingModel:  Testing Model initializing"+SPACE, br.readLine());
-		assertEquals("INFO utility.TestingModel:  First output row written."+SPACE, br.readLine());
-		assertEquals("INFO utility.TestingModel:  Second output row written."+SPACE, br.readLine());
-		assertEquals("INFO utility.TestingModel:  Last output row written."+SPACE, br.readLine());
-		assertNull(br.readLine()); 
 	}
 }

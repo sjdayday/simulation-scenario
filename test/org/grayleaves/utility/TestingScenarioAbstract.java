@@ -1,6 +1,8 @@
 package org.grayleaves.utility;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.grayleaves.utility.ComparisonResult;
 import org.grayleaves.utility.Input;
 import org.grayleaves.utility.InvalidStaticParameterException;
@@ -29,13 +31,14 @@ public class TestingScenarioAbstract
 	protected Scenario<String, TestingInput> testScenario;
 	protected ScenarioAnalyzer<String, TestingInput> analyzer;
 	protected ComparisonResult comparison;
-
 	@Before
 	public void setUp() throws Exception
 	{
 		TestingBean.resetForTesting();
 		MockClock.setDateForTesting("10/15/2005 12:00:14 PM");
 		BasicConfigurator.resetConfiguration(); 
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.ERROR);
 //		buildScenarioLog(scenarioLog, 4, "Some data"); 
 		baselineScenario = buildScenario(5, 4, "Some data");
 		testScenario = buildScenario(6, 4, "Some data");

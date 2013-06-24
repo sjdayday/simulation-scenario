@@ -1,6 +1,5 @@
 package org.grayleaves.utility;
 
-import java.io.BufferedReader;
 
 
 public class PersistentModel<R> implements Model<R>
@@ -19,12 +18,6 @@ public class PersistentModel<R> implements Model<R>
 	{
 	}
 	
-	@Override
-	public BufferedReader getLog()
-	{
-		//TODO convert to Log?  
-		return null;
-	}
 	@Override
 	public Result<R> run() throws ModelException
 	{

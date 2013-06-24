@@ -1,6 +1,5 @@
 package org.grayleaves.utility;
 
-import java.io.BufferedReader;
 
 public interface Model<R>
 {
@@ -9,9 +8,6 @@ public interface Model<R>
 
 	public void setInput(Input input);
 	public Input getInput(); 
-
-	//TODO return Log? 
-	public BufferedReader getLog();
 
 	public int getId();
 	public void setId(int id);
