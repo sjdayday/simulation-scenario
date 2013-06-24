@@ -46,7 +46,7 @@ public class ScenarioSetTest
 		TestingFileBuilder.buildPersistentInput(); 
 		URL url = this.getClass().getClassLoader().getResource("log4j.properties");
 		if (url == null) System.out.println("log4j not found");
-		else System.out.println(url.getPath()); 
+//		else System.out.println(url.getPath()); 
 		setUp(new Integer[]{40, 50});
 	}
 	@After

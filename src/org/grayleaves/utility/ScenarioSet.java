@@ -110,22 +110,12 @@ public class ScenarioSet<R, I>
 			scenario.setParameterPoint(point); 
 			if (scenario.getId() == 0) scenario.setId(++scenarioIdForTesting); 
 			logger.debug("run scenario");
-//			mapScenarios(); 
-//		StringBuffer sb = new StringBuffer(); // 
 			scenario.setOutputFileBuilder(outputFileBuilder.cloneWithId(scenario.getId())); 
 			ResourceManager.run(this);
 			logger.debug("run scenarios; about to run scenario"+scenario.getId());
 			result = runScenario(scenario); 
 			writeLine(buildSummaryDataLine(scenario, result));
-			
-				//
-//			for (String string : scenario.getLog().getRecords())
-//			{
-//				sb.append(string); 
-//				sb.append("\n");
-//			}
-				//
-//			scenarioResults.add(result); 
+			//TODO move the data writing logic elsewhere so DebugScenarioTest can also use it.
 		}
 		try
 		{

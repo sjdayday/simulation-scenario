@@ -5,21 +5,20 @@ import java.util.Calendar;
 public interface Scenario<R, I> extends SingleParameterPoint 
 {
 
-	public void setModel(Model<R> model);
-	public Model<R> getModel();
-
 	public ScenarioResult<R> run() throws ScenarioException;
 
+	public void setParameterPoint(ParameterPoint point);
 
 	public void setId(int i);
 
 	public Calendar getCalendar();
 	public void setCalendar(Calendar calendar);
-
+	
 	public String getName();
 	public void setName(String string);
-	public void setParameterPoint(ParameterPoint point);
 
+	public Model<R> getModel();
+	public void setModel(Model<R> model);
 
 	public Input getInput();
 	public void setInput(Input input);

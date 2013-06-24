@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.Constants;
 import org.grayleaves.utility.InvalidStaticParameterException;
@@ -30,6 +32,7 @@ import org.grayleaves.utility.SimpleScenario;
 import org.grayleaves.utility.StaticParameterUpdater;
 import org.grayleaves.utility.UnsupportedParameterException;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -39,7 +42,7 @@ public class ScenarioTest
 	protected ParameterIterator iterator;
 	protected Scenario<String, TestingInput> scenario;
 	protected Model<String> model; 
-	
+
 	@Before
 	public void setUp() throws Exception
 	{
@@ -190,7 +193,7 @@ public class ScenarioTest
 		assertTrue(!file.exists()); 
 		buildScenario(); 
 		scenario.run(); 
-		System.out.println(scenario.getLog().getFilename());
+//		System.out.println(scenario.getLog().getFilename());
 		assertTrue(file.exists()); 
 		
 		assertEquals("data from object, not actual file","INFO utility.ScenarioLog:  Parameter point: Integer Name=6, String Public Name=tom, Int2 Public Name=0 ",scenario.getLog().getRecords().get(1)); 
