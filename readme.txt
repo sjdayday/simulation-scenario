@@ -45,6 +45,17 @@ There's lots to improve:
  bunches of TODOs and FIXMEs
  turn MikeTest into constraints on valid combinations of parameters values (see also ParameterConstraintTest) -- thanks, Mike :)
 
+Turning this into a system: 
+ Mavenize the project
+ Assume each model is available through maven; take its pom.xml as the definition of all the code dependencies needed to run it
+ Persist the scenario set output in MySQL, along with the pointers to the files for input, parameter space (and eventually, analysis files, e.g., R code)
+ Persist the input and parameter space files in a git repository?  Github? ... or a file server
+ Verify new scenario sets appropriately persisted
+ Verify a new scenario set request replicates correctly against an existing scenario set 
+ Create a ReplicationFixture to perform replication through Fitnesse...later, a GUI would be nice :)
+ That gets us to local execution on one machine...next up:  deploy to a server, implement authentication/authorization
+   
+
 Questions:  stevedoubleday@gmail.com
 
 Thanks for your interest!
