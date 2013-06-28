@@ -1,4 +1,5 @@
-bin*
+target
+.DS*
 ScenarioSet_*
 scenario_root
 parms.xml
