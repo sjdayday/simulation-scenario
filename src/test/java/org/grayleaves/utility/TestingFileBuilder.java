@@ -81,7 +81,7 @@ public class TestingFileBuilder
 	{
 		// "org/smartantsgame/utility/testing.properties"
 		String location = "org/grayleaves/utility/testing.properties";
-		String name = "bin/"+location; 
+		String name = "target/test-classes/"+location; 
 		File file = new File(name);
 		if (file.exists()) file.delete(); 
 		Properties properties = new Properties(); 

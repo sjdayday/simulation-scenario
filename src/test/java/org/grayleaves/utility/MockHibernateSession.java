@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.grayleaves.utility.HibernateRetrievable;
 import org.hibernate.CacheMode;
 import org.hibernate.Criteria;
 import org.hibernate.EntityMode;
@@ -17,13 +16,13 @@ import org.hibernate.Filter;
 import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
-//import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.ReplicationMode;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+//import org.hibernate.LockOptions;
 //import org.hibernate.UnknownProfileException;
 //import org.hibernate.jdbc.Work;
 //import org.hibernate.stat.SessionStatistics;
@@ -209,7 +208,6 @@ public class MockHibernateSession implements Session
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
 //	@Override
 //	public Object get(Class arg0, Serializable arg1, LockOptions arg2)
 //			throws HibernateException
@@ -367,7 +365,6 @@ public class MockHibernateSession implements Session
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
 //	@Override
 //	public Object load(Class arg0, Serializable arg1, LockOptions arg2)
 //			throws HibernateException
@@ -511,9 +508,6 @@ public class MockHibernateSession implements Session
 
 	@Override
 	public void update(String arg0, Object arg1) throws HibernateException
-	{
-	}
-	private class LockOptions 
 	{
 	}
 	@Override

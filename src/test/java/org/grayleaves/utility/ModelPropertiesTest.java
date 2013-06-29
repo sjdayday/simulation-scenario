@@ -35,13 +35,13 @@ public class ModelPropertiesTest
 	@Test
 	public void verifyCanLoadProperties() throws Exception
 	{		
-//		File file = new File("test\\org\\grayleaves\\utility\\testing.properties");
+		//TODO rework to avoid hard-coding file locations 
 		String fs = System.getProperty("file.separator"); 
-		File file = new File("test"+fs+"org"+fs+"grayleaves"+fs+"utility"+fs+"testing.properties");
+		File file = new File("src"+fs+"test"+fs+"java"+fs+"org"+fs+"grayleaves"+fs+"utility"+fs+"testing.properties");
 		assertTrue(file.exists());
 		ModelProperties.load("org/grayleaves/utility/testing.properties");
 		assertEquals("2", ModelProperties.getProperties().getProperty("integer.property"));
-		File backup = new File("test\\org\\grayleaves\\utility\\testing.properties.bak");
+		File backup = new File("src\\test\\java\\org\\grayleaves\\utility\\testing.properties.bak");
 		file.renameTo(backup);
 		assertTrue(!file.exists());
 		assertTrue(backup.exists());
