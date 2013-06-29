@@ -509,7 +509,8 @@ public class ScenarioSet<R, I>
 	{
 		if (session == null)
 		{
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+//			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 		}
 		return session;
 	}

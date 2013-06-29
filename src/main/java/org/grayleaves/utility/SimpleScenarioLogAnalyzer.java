@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import name.fraser.neil.plaintext.StandardBreakScorer;
 import name.fraser.neil.plaintext.diff_match_patch;
 import name.fraser.neil.plaintext.diff_match_patch.Diff;
 import name.fraser.neil.plaintext.diff_match_patch.Operation;
@@ -84,7 +85,7 @@ public class SimpleScenarioLogAnalyzer<R, I> extends AbstractScenarioAnalyzer<R,
 	private boolean matchRecords() 
 	{
 		
-		diff_match_patch dmp = new diff_match_patch(); 
+		diff_match_patch dmp = new diff_match_patch(new StandardBreakScorer()); 
 		LinkedList<Diff> diffs = null; 
 		StringBuffer sb = new StringBuffer(); 
 		DiffFormatter formatter = new DiffFormatter(); 

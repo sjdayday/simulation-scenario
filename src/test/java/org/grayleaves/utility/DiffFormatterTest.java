@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedList;
 
+import name.fraser.neil.plaintext.StandardBreakScorer;
 import name.fraser.neil.plaintext.diff_match_patch;
 import name.fraser.neil.plaintext.diff_match_patch.Diff;
 
@@ -24,7 +25,7 @@ public class DiffFormatterTest
 	@Before
 	public void setUp() throws Exception
 	{
-		dmp = new diff_match_patch(); 
+		dmp = new diff_match_patch(new StandardBreakScorer()); 
 		formatter = new DiffFormatter(); 
 		
 	}

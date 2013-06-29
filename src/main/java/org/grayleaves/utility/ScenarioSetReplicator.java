@@ -77,7 +77,8 @@ public class ScenarioSetReplicator<R, I>
 	}
 	private Transaction getTx()
 	{
-		session = HibernateUtil.getSessionFactory().getCurrentSession(); 
+//		session = HibernateUtil.getSessionFactory().getCurrentSession(); 
+		session = HibernateUtil.getSessionFactory().openSession(); 
 		return session.beginTransaction();
 	}
 	@SuppressWarnings("unchecked")
