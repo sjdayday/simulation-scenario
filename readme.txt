@@ -1,4 +1,4 @@
-5/11/13  
+7/5/13  
 
 simulation-scenario provides the core support for running simulations. 
 https://github.com/sjdayday/simulation-scenario.git 
@@ -15,17 +15,19 @@ Libraries:
   commons-collections:  hibernate
   antlr:  hibernate
   javassist:  hibernate
-  fitlibrary:  fitlibrary [built by hand ca. 2011.  Fitlibrary was developed by Rick Mugridge:  http://sourceforge.net/apps/mediawiki/fitlibrary/index.php?title=Main_Page]  
+  * [moved to a new project, forthcoming] fitlibrary:  fitlibrary [built by hand ca. 2011.  Fitlibrary was developed by Rick Mugridge:  http://sourceforge.net/apps/mediawiki/fitlibrary/index.php?title=Main_Page]  
 
 There should be no errors or warnings.  
  The lack of warnings is misleading; this project makes a lot of mis-quided use of generics (I was just learning...),
  and needs to be re-worked and re-factored to eliminate pointless generics complexity.  
 
-The tests in the tests folder have no external dependencies except for some files that are 
-created by the tests.  It may take a couple of runs of the tests for all
-the files to be created, after which there should be no failures.
-
-The tests in the testDatabase folder have dependencies on HSQLDB
+Theere are currently two packages: utility and utility.integration.  
+  This was done to make it possible to run the microtests against the utility package, 
+  and tests that require a database (HSQLDB) by running against the integration package.
+  This distinction is implemented in maven as a distinction between the unit tests (mvn package)
+  and integration tests (mvn verify or mvn install).  
+  
+The tests in the utility.integration folder have dependencies on HSQLDB
   File / Import / Run/Debug / Launch Configurations; then select from the project root
    hsqldb.launch 
    hsqldb Swing.launch 
@@ -34,11 +36,9 @@ The tests in the testDatabase folder have dependencies on HSQLDB
   run:  hsqldb 
   then: all simulation scenario database tests
  
- The fitlibrary folder contains the ParameterSpaceFixture; use of that fixture assumes you have a working 
- version of fitnesse as distributed by Rick Mugridge...more on that later, or contact me.
- 
- Log4j: src/log4j.properties currently set to "log4j.rootLogger = debug..."; change to "log4j.rootLogger = error..." to cut back on verboseness   
-        
+ [forthcoming...The fitlibrary folder contains the ParameterSpaceFixture; use of that fixture assumes you have a working 
+ version of fitnesse as distributed by Rick Mugridge...more on that later, or contact me.]
+         
 
 There's lots to improve:
  review and rework generics (above)
@@ -46,7 +46,6 @@ There's lots to improve:
  turn MikeTest into constraints on valid combinations of parameters values (see also ParameterConstraintTest) -- thanks, Mike :)
 
 Turning this into a system: 
- Mavenize the project
  Assume each model is available through maven; take its pom.xml as the definition of all the code dependencies needed to run it
  Persist the scenario set output in MySQL, along with the pointers to the files for input, parameter space (and eventually, analysis files, e.g., R code)
  Persist the input and parameter space files in a git repository?  Github? ... or a file server

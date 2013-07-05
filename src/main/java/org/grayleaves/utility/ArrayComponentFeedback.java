@@ -1,11 +1,10 @@
 /* Copyright (c) 2013, Regents of the University of California.  See License.txt for details */
 
-package org.grayleaves.component;
+package org.grayleaves.utility;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.grayleaves.utility.Pattern;
 
 public class ArrayComponentFeedback<F, O> implements ComponentFeedback<F, O>
 {

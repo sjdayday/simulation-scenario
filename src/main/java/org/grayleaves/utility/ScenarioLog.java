@@ -31,7 +31,7 @@ public class ScenarioLog<R, I>
 	private int recordCount;
 	private boolean hasTrailer = false;
 	private String customData = "";
-
+	//TODO either configure so log4j statements in Model log here, or convert this just to a file.   
 	public ScenarioLog()
 	{
 	}

@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.grayleaves.utility">
+	<class name="ScenarioSet" table="SCENARIO_SET" >
+		<id name="id" column="SCENARIO_SET_ID">
+			<generator class="native"></generator></id>
+		<property name="calendar" column="CALENDAR" type="calendar"></property>
+		<property name="name" column="NAME"></property>	
+		<many-to-one name="model" column="MODEL_ID" class="Model" not-null="true"></many-to-one>
+		<many-to-one name="input" column="INPUT_ID" class="Input" not-null="true"></many-to-one>
+		<many-to-one name="parameterSpace" column="PARAMETER_SPACE_ID" class="ParameterSpace" not-null="true"></many-to-one>
+		
+		<!-- inverse="true" -->
+		<list name="scenarios"  cascade="all-delete-orphan">
+			<key column="SCENARIO_SET_ID"></key>
+			<index column="POSITION"></index>
+			<one-to-many class="Scenario"></one-to-many>
+		</list>
+ 	</class>
+</hibernate-mapping>

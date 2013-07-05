@@ -116,7 +116,7 @@ public class ScenarioSet<R, I>
 			logger.debug("run scenario");
 			scenario.setOutputFileBuilder(outputFileBuilder.cloneWithId(scenario.getId())); 
 			ResourceManager.run(this);
-			logger.debug("run scenarios; about to run scenario"+scenario.getId());
+			logger.debug("run scenarios; about to run scenario "+scenario.getId());
 			result = runScenario(scenario); 
 			writeLine(buildSummaryDataLine(scenario, result));
 			//TODO move the data writing logic elsewhere so DebugScenarioTest can also use it.
@@ -130,7 +130,6 @@ public class ScenarioSet<R, I>
 			e.printStackTrace();
 		} 
 //		throw new ScenarioException("dump logs: \n"+sb.toString()); //
-		logger.debug("built scenarios; size="+scenarios.size());
 	}
 	public void validate() throws ScenarioException
 	{
@@ -145,7 +144,7 @@ public class ScenarioSet<R, I>
 			if (scenario.getId() == 0) scenario.setId(++scenarioIdForTesting); 
 		}
 	}
-	protected void buildScenarios()	throws ScenarioException
+	public void buildScenarios()	throws ScenarioException
 	{
 		buildOutputFileBuilder();
 		ParameterIterator iterator = parameterSpace.iterator();
@@ -174,7 +173,7 @@ public class ScenarioSet<R, I>
 			throw new ScenarioException(SCENARIO_SET+"buildScenarios:  "+e.getMessage()); 
 		}
 	}
-	protected void runScenarios() throws ScenarioException
+	public void runScenarios() throws ScenarioException
 	{
 		ResourceManager.registerScenarioSet(this);
 		logger.debug("run scenarios");
@@ -220,7 +219,7 @@ public class ScenarioSet<R, I>
 		}
 		return result;
 	}
-	protected void buildParameterSpace() throws ScenarioException 
+	public void buildParameterSpace() throws ScenarioException 
 	{
 		//TODO test exception paths
 		String filename = parameterSpace.getFilename(); 

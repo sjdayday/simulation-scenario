@@ -1,6 +1,6 @@
 /* Copyright (c) 2013, Regents of the University of California.  See License.txt for details */
 
-package org.grayleaves.component;
+package org.grayleaves.utility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

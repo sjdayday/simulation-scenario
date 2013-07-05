@@ -256,7 +256,7 @@ public class ScenarioSetTest
 			}
 		}
 		@Override
-		protected void buildScenarios() throws ScenarioException
+		public void buildScenarios() throws ScenarioException
 		{
 			scenarios.add(buildScenario());
 		}

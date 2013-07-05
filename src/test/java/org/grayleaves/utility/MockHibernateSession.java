@@ -15,7 +15,9 @@ import org.hibernate.EntityMode;
 import org.hibernate.Filter;
 import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
+import org.hibernate.LobHelper;
 import org.hibernate.LockMode;
+import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.ReplicationMode;
 import org.hibernate.SQLQuery;
@@ -26,6 +28,10 @@ import org.hibernate.Transaction;
 //import org.hibernate.UnknownProfileException;
 //import org.hibernate.jdbc.Work;
 //import org.hibernate.stat.SessionStatistics;
+import org.hibernate.TypeHelper;
+import org.hibernate.UnknownProfileException;
+import org.hibernate.jdbc.Work;
+import org.hibernate.stat.SessionStatistics;
 
 public class MockHibernateSession implements Session
 {
@@ -39,19 +45,28 @@ public class MockHibernateSession implements Session
 	{
 		this.list = list; 
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public Object get(Class clazz, Serializable id) throws HibernateException
+	{
+		Integer intId = (Integer) id; 
+		if (this.map == null)
+		{
+			map = new HashMap(); 
+			// cast to clazz, return null if fails
+			for (HibernateRetrievable retrievable : this.list)
+			{
+				map.put(retrievable.getId(), retrievable);
+			}
+		}
+		return map.get(intId);
+	}
 
 	@Override
 	public Transaction beginTransaction() throws HibernateException
 	{
 		return null;
 	}
-
-//	@Override
-//	public LockRequest buildLockRequest(LockOptions arg0)
-//	{
-//		return null;
-//	}
-
 	@Override
 	public void cancelQuery() throws HibernateException
 	{
@@ -130,37 +145,11 @@ public class MockHibernateSession implements Session
 	{
 	}
 
-//	@Override
-//	public void delete(String arg0, Object arg1) throws HibernateException
-//	{
-//	}
-
-//	@Override
-//	public void disableFetchProfile(String arg0) throws UnknownProfileException
-//	{
-//	}
-
-//	@Override
-//	public void disableFilter(String arg0)
-//	{
-//	}
-
 	@Override
 	public Connection disconnect() throws HibernateException
 	{
 		return null;
 	}
-
-//	@Override
-//	public void doWork(Work arg0) throws HibernateException
-//	{
-//	}
-
-//	@Override
-//	public void enableFetchProfile(String arg0) throws UnknownProfileException
-//	{
-//	}
-
 	@Override
 	public Filter enableFilter(String arg0)
 	{
@@ -177,22 +166,6 @@ public class MockHibernateSession implements Session
 	{
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public Object get(Class clazz, Serializable id) throws HibernateException
-	{
-		Integer intId = (Integer) id; 
-		if (this.map == null)
-		{
-			map = new HashMap(); 
-			// cast to clazz, return null if fails
-			for (HibernateRetrievable retrievable : this.list)
-			{
-				map.put(retrievable.getId(), retrievable);
-			}
-		}
-		return map.get(intId);
-	}
 
 	@Override
 	public Object get(String arg0, Serializable arg1) throws HibernateException
@@ -207,28 +180,12 @@ public class MockHibernateSession implements Session
 	{
 		return null;
 	}
-
-//	@Override
-//	public Object get(Class arg0, Serializable arg1, LockOptions arg2)
-//			throws HibernateException
-//	{
-//		return null;
-//	}
-
 	@Override
 	public Object get(String arg0, Serializable arg1, LockMode arg2)
 			throws HibernateException
 	{
 		return null;
 	}
-
-//	@Override
-//	public Object get(String arg0, Serializable arg1, LockOptions arg2)
-//			throws HibernateException
-//	{
-//		return null;
-//	}
-
 	@Override
 	public CacheMode getCacheMode()
 	{
@@ -288,56 +245,21 @@ public class MockHibernateSession implements Session
 	{
 		return null;
 	}
-
-//	@Override
-//	public SessionStatistics getStatistics()
-//	{
-//		return null;
-//	}
-
-//	@Override
-//	public Transaction getTransaction()
-//	{
-//		return null;
-//	}
-
 	@Override
 	public boolean isConnected()
 	{
 		return false;
 	}
-
-//	@Override
-//	public boolean isDefaultReadOnly()
-//	{
-//		return false;
-//	}
-
 	@Override
 	public boolean isDirty() throws HibernateException
 	{
 		return false;
 	}
-
-//	@Override
-//	public boolean isFetchProfileEnabled(String arg0)
-//			throws UnknownProfileException
-//	{
-//		return false;
-//	}
-
 	@Override
 	public boolean isOpen()
 	{
 		return false;
 	}
-
-//	@Override
-//	public boolean isReadOnly(Object arg0)
-//	{
-//		return false;
-//	}
-
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object load(Class arg0, Serializable arg1) throws HibernateException
@@ -364,28 +286,12 @@ public class MockHibernateSession implements Session
 	{
 		return null;
 	}
-
-//	@Override
-//	public Object load(Class arg0, Serializable arg1, LockOptions arg2)
-//			throws HibernateException
-//	{
-//		return null;
-//	}
-
 	@Override
 	public Object load(String arg0, Serializable arg1, LockMode arg2)
 			throws HibernateException
 	{
 		return null;
 	}
-
-//	@Override
-//	public Object load(String arg0, Serializable arg1, LockOptions arg2)
-//			throws HibernateException
-//	{
-//		return null;
-//	}
-
 	@Override
 	public void lock(Object arg0, LockMode arg1) throws HibernateException
 	{
@@ -438,13 +344,6 @@ public class MockHibernateSession implements Session
 	public void refresh(Object arg0, LockMode arg1) throws HibernateException
 	{
 	}
-
-//	@Override
-//	public void refresh(Object arg0, LockOptions arg1)
-//			throws HibernateException
-//	{
-//	}
-
 	@Override
 	public void replicate(Object arg0, ReplicationMode arg1)
 			throws HibernateException
@@ -485,22 +384,10 @@ public class MockHibernateSession implements Session
 	public void setCacheMode(CacheMode arg0)
 	{
 	}
-
-//	@Override
-//	public void setDefaultReadOnly(boolean arg0)
-//	{
-//	}
-
 	@Override
 	public void setFlushMode(FlushMode arg0)
 	{
 	}
-
-//	@Override
-//	public void setReadOnly(Object arg0, boolean arg1)
-//	{
-//	}
-
 	@Override
 	public void update(Object arg0) throws HibernateException
 	{
@@ -510,37 +397,126 @@ public class MockHibernateSession implements Session
 	public void update(String arg0, Object arg1) throws HibernateException
 	{
 	}
+
 	@Override
-	public void save(Object arg0, Serializable arg1) throws HibernateException {
-		// TODO Auto-generated method stub
-		
+	public void disableFilter(String arg0)
+	{
 	}
 
 	@Override
-	public void save(String arg0, Object arg1, Serializable arg2)
-			throws HibernateException {
-		// TODO Auto-generated method stub
-		
+	public LockRequest buildLockRequest(LockOptions arg0)
+	{
+		return null;
 	}
 
 	@Override
-	public void update(Object arg0, Serializable arg1)
-			throws HibernateException {
-		// TODO Auto-generated method stub
-		
+	public void delete(String arg0, Object arg1) throws HibernateException
+	{
+
 	}
 
 	@Override
-	public void update(String arg0, Object arg1, Serializable arg2)
-			throws HibernateException {
-		// TODO Auto-generated method stub
-		
+	public void disableFetchProfile(String arg0) throws UnknownProfileException
+	{
+
 	}
 
 	@Override
-	public void disableFilter(String arg0) {
-		// TODO Auto-generated method stub
-		
+	public void doWork(Work arg0) throws HibernateException
+	{
+
+	}
+
+	@Override
+	public void enableFetchProfile(String arg0) throws UnknownProfileException
+	{
+	}
+
+	@Override
+	public Object get(@SuppressWarnings("rawtypes") Class arg0, Serializable arg1, LockOptions arg2)
+			throws HibernateException
+	{
+		return null;
+	}
+
+	@Override
+	public Object get(String arg0, Serializable arg1, LockOptions arg2)
+			throws HibernateException
+	{
+		return null;
+	}
+
+	@Override
+	public LobHelper getLobHelper()
+	{
+		return null;
+	}
+
+	@Override
+	public SessionStatistics getStatistics()
+	{
+		return null;
+	}
+
+	@Override
+	public Transaction getTransaction()
+	{
+		return null;
+	}
+
+	@Override
+	public TypeHelper getTypeHelper()
+	{
+		return null;
+	}
+
+	@Override
+	public boolean isDefaultReadOnly()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isFetchProfileEnabled(String arg0)
+			throws UnknownProfileException
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isReadOnly(Object arg0)
+	{
+		return false;
+	}
+
+	@Override
+	public Object load(@SuppressWarnings("rawtypes") Class arg0, Serializable arg1, LockOptions arg2)
+			throws HibernateException
+	{
+		return null;
+	}
+
+	@Override
+	public Object load(String arg0, Serializable arg1, LockOptions arg2)
+			throws HibernateException
+	{
+		return null;
+	}
+
+	@Override
+	public void refresh(Object arg0, LockOptions arg1)
+			throws HibernateException
+	{
+	}
+
+	@Override
+	public void setDefaultReadOnly(boolean arg0)
+	{
+	}
+
+	@Override
+	public void setReadOnly(Object arg0, boolean arg1)
+	{
 	}
 }
 

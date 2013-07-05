@@ -1,8 +1,7 @@
 /* Copyright (c) 2013, Regents of the University of California.  See License.txt for details */
 
-package org.grayleaves.component;
+package org.grayleaves.utility;
 
-import org.grayleaves.utility.Input;
 
 public interface ComponentInput<I> extends Input 
 {

@@ -1,0 +1,10 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.grayleaves.utility">
+	<class name="Model" table="MODEL" discriminator-value="MD">
+		<id name="id" column="MODEL_ID">
+		<generator class="native"></generator></id>
+		<discriminator column="MODEL_TYPE" type="string"/>
+		<property name="name" column="NAME"></property>
+		<property name="clazz" column="CLAZZ"></property>
+		<subclass name="PersistentModel" discriminator-value="PM"></subclass>
+	</class></hibernate-mapping>
