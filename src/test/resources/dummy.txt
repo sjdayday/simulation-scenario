@@ -1,0 +1,1 @@
+dummy to make git save the resources folder
