@@ -2,36 +2,34 @@
 
 package org.grayleaves.utility;
 
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.EnhancedPatternLayout;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-
 public class ScenarioLog<R, I> 
 {
 
 	private static final String SPACES = "   ";
-	private static final String LAYOUT = "%p %c{2}:  %m %n";
+	private static final String SPACE = " ";
 	private static final String DATE_FORMAT = "yyyy_MM_dd__hh_mm_ssaa";
+	private static final String INFO = "INFO";
+	private static final String ERROR = "ERROR";
 	private String filename; 
 	private boolean closed = false; 
-	private transient FileAppender appender;
-	private static Logger logger = Logger.getLogger(ScenarioLog.class);
 	protected List<String> records;
 	private Scenario<R, I> scenario;
 	private int recordCount;
 	private boolean hasTrailer = false;
 	private String customData = "";
-	//TODO either configure so log4j statements in Model log here, or convert this just to a file.   
+	private BufferedWriter writer;
 	public ScenarioLog()
 	{
 	}
@@ -39,10 +37,21 @@ public class ScenarioLog<R, I>
 	{
 		this.scenario = scenario; 
 		buildFileName();
-		configureAppender(); 
+		setUpFile(); 
 		logHeader();
 		hasTrailer = false;
 		recordCount = 0; 
+	}
+	protected void setUpFile() throws ScenarioException
+	{
+		writer = null;
+		try
+		{
+			writer = new BufferedWriter(new FileWriter(getFilename()));
+		} catch (IOException e)
+		{
+			throw new ScenarioException("ScenarioException:  IOException in ScenarioLog.setUpFile:  "+e.getMessage()); 
+		} 
 	}
 	private void logHeader()
 	{
@@ -51,7 +60,6 @@ public class ScenarioLog<R, I>
 		sb.append(buildDateTime()); 
 		log(sb.toString());
 		recordCount = 0; // ignore header
-//		logger.info(sb.toString()); 
 	}
 	private StringBuffer appendScenarioNameAndId()
 	{
@@ -61,28 +69,6 @@ public class ScenarioLog<R, I>
 		sb.append(SPACES+"Scenario Id: ");
 		sb.append(scenario.getId());
 		return sb;
-	}
-	protected void configureAppender() throws ScenarioException 
-	{
-		try
-		{
-			appender = new FileAppender(new EnhancedPatternLayout(LAYOUT), getFilename());
-			appender.setName(this.toString());
-		} 
-		catch (IOException e)
-		{
-			throw new ScenarioException("ScenarioException:  IOException in ScenarioLog.configureAppender:  "+e.getMessage()); 
-		}
-		BasicConfigurator.resetConfiguration(); 
-		logger.addAppender(appender); 
-//		Logger.getRootLogger().setLevel(Level.DEBUG); 
-		
-		
-//		throw new ScenarioException("name " + appender.getName()+
-//				"file " +appender.getFile() +
-//				"immediate? " + appender.getImmediateFlush() + " numb " + logger.getAllAppenders().hasMoreElements()
-//				);
-//		BasicConfigurator.configure(appender); 
 	}
 	protected void buildFileName() throws ScenarioException
 	{
@@ -128,21 +114,35 @@ public class ScenarioLog<R, I>
 	}
 	protected void logInfo(String record)
 	{
-		logger.info(record);
-//		logger.info("one record logged");
-//		Appender app = logger.getAppender(this.toString());
-//		if (app == null) throw new RuntimeException("null app"); 
-//		throw new RuntimeException("enabled for info " + logger.isEnabledFor(Priority.INFO) +
-//				" level " + logger.getLevel().toString() +
-//				" error handler " + app.getErrorHandler() +
-//				"enabled for info " + logger.isInfoEnabled() 
-//				"enabled for info " + logger.EnabledFor(Priority.INFO) +
-//				
-//				);
+		write(writeLead(INFO, record));
 	}
 	protected void logError(String record)
 	{
-		logger.error(record);
+		write(writeLead(ERROR, record));
+	}
+	private String writeLead(String type, String record)
+	{
+		StringBuffer sb = new StringBuffer(); 
+		sb.append(type); 
+		sb.append(SPACE);
+		sb.append("utility.ScenarioLog: ");
+		sb.append(SPACE);
+		sb.append(record); 
+		sb.append(SPACE);
+		return sb.toString();
+	}
+	private void write(String record) 
+	{
+		try
+		{
+			writer.write(record);
+			writer.newLine();
+			writer.flush(); 
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	public List<String> getRecords() throws ScenarioException
 	{
@@ -195,8 +195,14 @@ public class ScenarioLog<R, I>
 	}
 	public void close()
 	{
-		appender.close(); 
-		logger.removeAppender(appender); 
+		try
+		{
+			writer.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		setClosed(true);
 	}
 	public String getFilename()
@@ -239,5 +245,4 @@ public class ScenarioLog<R, I>
 	{
 		this.customData = customData;
 	}
-
 }

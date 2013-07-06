@@ -7,18 +7,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.log4j.EnhancedPatternLayout;
-import org.apache.log4j.FileAppender;
-import org.grayleaves.utility.Constants;
-import org.grayleaves.utility.MockClock;
-import org.grayleaves.utility.OutputFileBuilder;
-import org.grayleaves.utility.Scenario;
-import org.grayleaves.utility.ScenarioException;
-import org.grayleaves.utility.ScenarioLog;
-import org.grayleaves.utility.SimpleScenario;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -134,12 +127,12 @@ public class ScenarioLogTest
 		ScenarioLog<String, TestingInput> log = getUninitializedLog(); 
 		try
 		{
-			log.configureAppender(); 
+			log.setUpFile(); 
 			fail("should throw");
 		}
 		catch (ScenarioException e)
 		{
-			assertTrue(e.getMessage().startsWith("ScenarioException:  IOException in ScenarioLog.configureAppender:  "));
+			assertTrue(e.getMessage().startsWith("ScenarioException:  IOException in ScenarioLog.setUpFile:  "));
 		}
 	}
 	@Test 
@@ -171,20 +164,35 @@ public class ScenarioLogTest
 		return new ScenarioLog<String, TestingInput>()
 		{
 			// anonymous inner override
-			private static final String LAYOUT = "%p %c{2}:  %m %n";
 			@SuppressWarnings("unused")
-			private FileAppender appender;
-			protected void configureAppender() throws ScenarioException 
+			private BufferedWriter writer; 
+			@Override
+			protected void setUpFile() throws ScenarioException
 			{
+				writer = null;
 				try
 				{
-					appender = new FileAppender(new EnhancedPatternLayout(LAYOUT), "");
-				} 
-				catch (IOException e)
+					writer = new BufferedWriter(new FileWriter(""));
+				} catch (IOException e)
 				{
-					throw new ScenarioException("ScenarioException:  IOException in ScenarioLog.configureAppender:  "+e.getMessage()); 
-				}
+					throw new ScenarioException("ScenarioException:  IOException in ScenarioLog.setUpFile:  "+e.getMessage()); 
+				} 
+
 			}
+//			private static final String LAYOUT = "%p %c{2}:  %m %n";
+//			@SuppressWarnings("unused")
+//			private FileAppender appender;
+//			protected void configureAppender() throws ScenarioException 
+//			{
+//				try
+//				{
+//					appender = new FileAppender(new EnhancedPatternLayout(LAYOUT), "");
+//				} 
+//				catch (IOException e)
+//				{
+//					throw new ScenarioException("ScenarioException:  IOException in ScenarioLog.configureAppender:  "+e.getMessage()); 
+//				}
+//			}
 		};
 	}
 	@SuppressWarnings("unused")

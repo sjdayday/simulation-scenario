@@ -27,10 +27,10 @@ public class ListScenarioLog<R, I> extends ScenarioLog<R, I>
 	{
 	}
 	@Override
-    protected void configureAppender() throws ScenarioException
-    {
+	protected void setUpFile() throws ScenarioException
+	{
 		records = new ArrayList<String>();
-    }
+	}
     @Override
     protected void logError(String record)
     {
