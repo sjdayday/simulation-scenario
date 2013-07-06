@@ -32,9 +32,6 @@ public class ScenarioLogTest
         scenario.setId(3); 
         scenario.setOutputFileBuilder(builder.cloneWithId(scenario.getId()));
         scenario.setName("some name");
-        //TODO determine which class should be responsible for log4j configuration
-//        BasicConfigurator.resetConfiguration();  // moved from configureAppender
-//        log = new ScenarioLog(3, MockClock.getCalendar(), "some name"); 
         log = new ScenarioLog<String, TestingInput>(scenario); 
 	}
 	@Test
@@ -155,9 +152,6 @@ public class ScenarioLogTest
 	{
 		if (log!= null) log.close();
 		TestingFileBuilder.cleanUpDirectory("scenario_root"); 
-//		File file = new File("Scenario_3_2005_10_15__12_00_14PM_some name.log");
-//		if (file.exists())	
-//			assertTrue("couldn't delete file",file.delete());
 	}
 	public ScenarioLog<String, TestingInput> getUninitializedLog()
 	{
@@ -179,20 +173,6 @@ public class ScenarioLogTest
 				} 
 
 			}
-//			private static final String LAYOUT = "%p %c{2}:  %m %n";
-//			@SuppressWarnings("unused")
-//			private FileAppender appender;
-//			protected void configureAppender() throws ScenarioException 
-//			{
-//				try
-//				{
-//					appender = new FileAppender(new EnhancedPatternLayout(LAYOUT), "");
-//				} 
-//				catch (IOException e)
-//				{
-//					throw new ScenarioException("ScenarioException:  IOException in ScenarioLog.configureAppender:  "+e.getMessage()); 
-//				}
-//			}
 		};
 	}
 	@SuppressWarnings("unused")

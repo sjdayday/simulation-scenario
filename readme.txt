@@ -38,7 +38,9 @@ The tests in the utility.integration folder have dependencies on HSQLDB
  
  [forthcoming...The fitlibrary folder contains the ParameterSpaceFixture; use of that fixture assumes you have a working 
  version of fitnesse as distributed by Rick Mugridge...more on that later, or contact me.]
-         
+      
+Code formatting:  to keep consistency with existing formatting (but this would reset for all projects in your workspace, so export yours beforehand...):
+ Preferences / Java / Formatter / import / default_code_formatter.xml  (in project root dir)         
 
 There's lots to improve:
  review and rework generics (above)
