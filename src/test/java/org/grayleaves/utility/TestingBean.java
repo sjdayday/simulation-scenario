@@ -34,7 +34,6 @@ public class TestingBean
 	public String nonStaticStringParm; 
 	public static Pattern PATTERN_PARM = new Pattern(new Boolean[]{true}); 
 	private int num;
-	private NotSerializableClass notSerializable; 
 	
 	public TestingBean()
 	{
@@ -64,13 +63,4 @@ public class TestingBean
 	{
 		this.num = num;
 	}
-	public NotSerializableClass getNotSerializable()
-	{
-		return notSerializable;
-	}
-	public void setNotSerializable(NotSerializableClass notSerializable)
-	{
-		this.notSerializable = notSerializable;
-	}
-	
 }
