@@ -61,7 +61,7 @@ public class ScenarioSetReplicatorPersistenceTest extends AbstractHistoryTest
 		super.setUp();
 		cleanUpFile("baselineSpace.xml");
 		cleanUpFile("comparedSpace.xml");
-		TestingFileBuilder.cleanUpDirectory("scenario_root");
+		TestingFileBuilder.cleanUpDirectory("scenario_subdir");
 		TestingFileBuilder.cleanUpDirectory("ScenarioSet_0");
 		test = new ScenarioTest();
 		iterator = test.buildParameterIterator(); 
@@ -163,7 +163,7 @@ public class ScenarioSetReplicatorPersistenceTest extends AbstractHistoryTest
 		assertEquals("test 2", newScenario.getName()); 
 		assertEquals("Test 1", newScenario.getModel().getName()); 
 		filename = newScenario.getLog().getFilename();
-		assertEquals(builder.getRootDirectoryName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_"+newScenario.getId()+"_2005_10_15__12_00_14PM_test 2.log", filename ); 
+		assertEquals(builder.getRootDirectoryFullPathName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_"+newScenario.getId()+"_2005_10_15__12_00_14PM_test 2.log", filename ); 
 		assertEquals(4, newScenario.getLog().getRecordCount()); 
 		assertEquals("some custom data=23, another=true, last=random string", newScenario.getLog().getCustomData());
 		assertEquals("TestingModel from input 17\n"+ 
@@ -174,7 +174,7 @@ public class ScenarioSetReplicatorPersistenceTest extends AbstractHistoryTest
 	}
 	private void buildScenario(String which) throws Exception, ScenarioException
 	{
-		builder = new OutputFileBuilder("scenario_root"); 
+		builder = new OutputFileBuilder("scenario_subdir"); 
 		createModel();  // different model for each scenario.  if moved to setUp, one model used for both scenarios
 		tx = getTx();
 		scenario = new SimpleScenario<String, PersistentInput>(); 

@@ -25,7 +25,7 @@ public class ScenarioLogTest
 	public void setUp() throws Exception
 	{
 		deleteTestScenarioLog(); 
-		builder = new OutputFileBuilder("scenario_root");
+		builder = new OutputFileBuilder("scenario_subdir");
 		scenario = new SimpleScenario<String, TestingInput>();
         MockClock.setDateForTesting("10/15/2005 12:00:14 PM");		
         scenario.setCalendar(MockClock.getCalendar());
@@ -38,7 +38,7 @@ public class ScenarioLogTest
 	public void verifyHeaderHasScenarioIdDateTimeName() throws Exception
 	{
 		log.close(); 
-		assertEquals(builder.getRootDirectoryName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_3_2005_10_15__12_00_14PM_some name.log", log.getFilename()); 
+		assertEquals(builder.getRootDirectoryFullPathName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_3_2005_10_15__12_00_14PM_some name.log", log.getFilename()); 
 	}
 	@Test
 	public void verifyHeaderRecord() throws Exception
@@ -151,7 +151,7 @@ public class ScenarioLogTest
 	private void deleteTestScenarioLog() throws Exception
 	{
 		if (log!= null) log.close();
-		TestingFileBuilder.cleanUpDirectory("scenario_root"); 
+		TestingFileBuilder.cleanUpDirectory("scenario_subdir"); 
 	}
 	public ScenarioLog<String, TestingInput> getUninitializedLog()
 	{

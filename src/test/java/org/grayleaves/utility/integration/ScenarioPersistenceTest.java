@@ -34,13 +34,13 @@ public class ScenarioPersistenceTest extends AbstractHistoryTest
 		super.setUp(); 
 		ScenarioTest test = new ScenarioTest();
 		iterator = test.buildParameterIterator(); 
-		TestingFileBuilder.cleanUpDirectory("scenario_root"); 
+		TestingFileBuilder.cleanUpDirectory("scenario_subdir"); 
 	}
 	@SuppressWarnings("unchecked")
 	@Test
 	public void verifyScenarioCreatedWithModel() throws Exception
 	{
-		builder = new OutputFileBuilder("scenario_root"); 
+		builder = new OutputFileBuilder("scenario_subdir"); 
 		int id = createModel(); 
 		buildPersistentInput();
 		tx = getTx();
@@ -57,7 +57,7 @@ public class ScenarioPersistenceTest extends AbstractHistoryTest
 		assertEquals("TestingModel from input 17\n"+ 
 				"parameters string tom, int 6, boolean true\n"+
 				"output:  23", result.getResult().toString()); 
-		assertEquals(builder.getRootDirectoryName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_"+scenario.getId()+"_2005_10_15__12_00_14PM_test 2.log", scenario.getLog().getFilename());
+		assertEquals(builder.getRootDirectoryFullPathName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_"+scenario.getId()+"_2005_10_15__12_00_14PM_test 2.log", scenario.getLog().getFilename());
 		assertEquals(4, scenario.getLog().getRecordCount()); 
 		assertEquals("some custom data=23, another=true, last=random string", scenario.getLog().getCustomData()); 
 		assertEquals("INFO utility.ScenarioLog:  TestingModel from input 17 ",scenario.getLog().getRecords().get(2));
@@ -71,7 +71,7 @@ public class ScenarioPersistenceTest extends AbstractHistoryTest
 		assertEquals("Integer Name=6, String Public Name=tom, Int2 Public Name=0", newScenario.getParameterPoint().verboseToString());
 		assertEquals(id, newScenario.getModel().getId());
 		filename = newScenario.getLog().getFilename();
-		assertEquals(builder.getRootDirectoryName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_"+newScenario.getId()+"_2005_10_15__12_00_14PM_test 2.log", filename ); 
+		assertEquals(builder.getRootDirectoryFullPathName()+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_"+newScenario.getId()+"_2005_10_15__12_00_14PM_test 2.log", filename ); 
 		assertEquals(4, newScenario.getLog().getRecordCount()); 
 		assertEquals("some custom data=23, another=true, last=random string", newScenario.getLog().getCustomData()); 
 

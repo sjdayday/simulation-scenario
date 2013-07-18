@@ -64,7 +64,7 @@ public class TestingScenarioAbstract
 			int count, String data, int testInput) throws InvalidStaticParameterException,
 			UnsupportedParameterException, ScenarioException, OutputFileBuilderException
 	{
-		OutputFileBuilder builder = new OutputFileBuilder("scenario_root");
+		OutputFileBuilder builder = new OutputFileBuilder("scenario_subdir");
 
 		Scenario<String, TestingInput> scenario = new SimpleScenario<String, TestingInput>(); 
 		scenario.setName("Testing scenario");

@@ -28,7 +28,7 @@ public class ScenarioTest
 	@Before
 	public void setUp() throws Exception
 	{
-		TestingFileBuilder.cleanUpDirectory("scenario_root");
+		TestingFileBuilder.cleanUpDirectory("scenario_subdir");
 		TestingBean.resetForTesting();
 		scenario = new SimpleScenario<String, TestingInput>();
 		buildParameterIterator();
@@ -122,7 +122,7 @@ public class ScenarioTest
 		}
 		try
 		{
-			scenario.setOutputFileBuilder(new OutputFileBuilder("scenario_root")); 
+			scenario.setOutputFileBuilder(new OutputFileBuilder("scenario_subdir")); 
 			scenario.run();
 			fail("no Input yet"); 
 		}
@@ -173,7 +173,7 @@ public class ScenarioTest
 	@Test
 	public void verifyScenarioResultsAreLoggedInLogsDirectory() throws Exception
 	{
-		File file = new File("scenario_root"+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_4_2005_10_15__12_00_14PM_Testing scenario.log");
+		File file = new File("scenario_subdir"+Constants.SLASH+"logs"+Constants.SLASH+"Scenario_4_2005_10_15__12_00_14PM_Testing scenario.log");
 		assertTrue(!file.exists()); 
 		buildScenario(); 
 		scenario.run(); 
@@ -195,7 +195,7 @@ public class ScenarioTest
 	}
 	private void buildScenario() throws OutputFileBuilderException
 	{
-		OutputFileBuilder builder = new OutputFileBuilder("scenario_root");
+		OutputFileBuilder builder = new OutputFileBuilder("scenario_subdir");
 		scenario.setName("Testing scenario");
 		scenario.setId(4);
 		scenario.setOutputFileBuilder(builder.cloneWithId(scenario.getId()));

@@ -23,26 +23,53 @@ public class OutputFileBuilder
 	private File rootDirectory;
 	private String rootDirectoryName;
 	private int id;
+	private String environmentVariable;
 
 	public OutputFileBuilder(String rootDirectoryName) throws OutputFileBuilderException
 	{
-		this.rootDirectoryName = rootDirectoryName; 
-		rootDirectory = new File(rootDirectoryName); 
-		makeDir(rootDirectory);
+		setRootDirectoryName(rootDirectoryName);
+		makeRootDirectory(rootDirectoryName);
 	}
 
-	protected void createDirectory(String directory) throws OutputFileBuilderException
+
+	public OutputFileBuilder(String environmentVariable, String rootDirectoryName) throws OutputFileBuilderException
 	{
-		makeDir(new File(getRootDirectoryName()+Constants.SLASH+directory)); 
+		this.environmentVariable = environmentVariable; 
+		setRootDirectoryName(rootDirectoryName);
+		String envPath = Environment.getEnv(environmentVariable); 
+		if (envPath != null)
+		{
+			String newPath = createDirectory(envPath, rootDirectoryName); 
+			setRootDirectory(newPath); 
+		}
+		else makeRootDirectory(rootDirectoryName);
 	}
-
-
-	public String getRootDirectoryName() throws OutputFileBuilderException 
+	private void makeRootDirectory(String rootDirectoryName) throws OutputFileBuilderException
+	{
+		setRootDirectory(rootDirectoryName); 
+		makeDir(rootDirectory); // make subdir
+	}
+	private void setRootDirectoryName(String rootDirectoryName)
+	{
+		this.rootDirectoryName = rootDirectoryName;
+	}
+	private void setRootDirectory(String rootDirectoryName)
+	{
+		rootDirectory = new File(rootDirectoryName);
+	}
+	protected String createDirectory(String path, String directory) throws OutputFileBuilderException
+	{
+		String newPath = path+Constants.SLASH+directory; 
+		File newDir = new File(newPath); 
+		makeDir(newDir); 
+		return newPath; 
+	}
+	public String getRootDirectoryFullPathName() throws OutputFileBuilderException 
 	{
 		String directory = null; 
 		try
 		{
-			directory = rootDirectory.getCanonicalPath();
+			directory = rootDirectory.getCanonicalPath(); // subdir
 		}
 		catch (IOException e)
 		{
@@ -68,7 +95,9 @@ public class OutputFileBuilder
 		OutputFileBuilder copy = null; 
 		try
 		{
-			copy = new OutputFileBuilder(rootDirectoryName);
+//			copy = new OutputFileBuilder(rootDirectoryName);
+			if (environmentVariable == null) copy = new OutputFileBuilder(rootDirectoryName);
+			else copy = new OutputFileBuilder(environmentVariable, rootDirectoryName);
 		}
 		catch (OutputFileBuilderException e)
 		{
@@ -89,13 +118,13 @@ public class OutputFileBuilder
 
 	public File buildFile(String directory, String name, String prefix, String extension) throws OutputFileBuilderException
 	{
-		createDirectory(directory); 
-		File file = new File(getRootDirectoryName()+Constants.SLASH+directory+Constants.SLASH+buildFileName(name, prefix, extension)); 
+		String newPath = createDirectory(getRootDirectoryFullPathName(), directory); 
+		File file = new File(newPath+Constants.SLASH+buildFileName(name, prefix, extension)); 
 		return file; 
 	}
 	public File buildSummaryFile(String name) throws OutputFileBuilderException
 	{
-		File file = new File(getRootDirectoryName()+Constants.SLASH+name); 
+		File file = new File(getRootDirectoryFullPathName()+Constants.SLASH+name); 
 		return file;
 	}
 
@@ -110,6 +139,12 @@ public class OutputFileBuilder
 		sb.append(DOT); 
 		sb.append(extension); 
 		return sb.toString();
+	}
+
+
+	protected File getRootDirectory()
+	{
+		return rootDirectory;
 	}
 
 }

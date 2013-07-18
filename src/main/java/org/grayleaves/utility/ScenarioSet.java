@@ -166,7 +166,7 @@ public class ScenarioSet<R, I>
 	{
 		try
 		{
-			outputFileBuilder = new OutputFileBuilder("ScenarioSet_"+getId());
+			outputFileBuilder = new OutputFileBuilder("SCENARIO_ROOT","ScenarioSet_"+getId());
 		}
 		catch (OutputFileBuilderException e)
 		{

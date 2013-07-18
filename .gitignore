@@ -1,7 +1,7 @@
 target
 .DS*
 ScenarioSet_*
-scenario_root
+scenario_subdir
 parms.xml
 smallParms*
 testingInput.xml
