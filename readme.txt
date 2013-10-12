@@ -15,7 +15,6 @@ Libraries:
   commons-collections:  hibernate
   antlr:  hibernate
   javassist:  hibernate
-  * [moved to a new project, forthcoming] fitlibrary:  fitlibrary [built by hand ca. 2011.  Fitlibrary was developed by Rick Mugridge:  http://sourceforge.net/apps/mediawiki/fitlibrary/index.php?title=Main_Page]  
 
 There should be no errors or warnings.  
  The lack of warnings is misleading; this project makes a lot of mis-quided use of generics (I was just learning...),
@@ -36,8 +35,8 @@ The tests in the utility.integration folder have dependencies on HSQLDB
   run:  hsqldb 
   then: all simulation scenario database tests
  
- [forthcoming...The fitlibrary folder contains the ParameterSpaceFixture; use of that fixture assumes you have a working 
- version of fitnesse as distributed by Rick Mugridge...more on that later, or contact me.]
+Acceptance tests are written in fitnesse.  For details, see: 
+  https://github.com/sjdayday/simulation-scenario-fit.git
       
 Code formatting:  to keep consistency with existing formatting (but this would reset for all projects in your workspace, so export yours beforehand...):
  Preferences / Java / Formatter / import / default_code_formatter.xml  (in project root dir)         
