@@ -19,6 +19,12 @@ public class RangeParameterTest
 		INT_PARM = new RangeParameter<Integer>("Int2 Public Name", new TestingParameterUpdater<Integer>(), 0, 100, 10, 50);
 		assertEquals("Int2 Public Name", INT_PARM.getName()); 
 	}
+	@Test(expected=IllegalArgumentException.class)
+	public void verifyThrowsIfParameterIsNotInteger() throws Exception {
+		@SuppressWarnings("unused")
+		RangeParameter<Double> parameter = new RangeParameter<Double>("Double Public Name", new TestingParameterUpdater<Double>(), 0d, 100d, 10d, 50d);
+	}
+
 //	@Test
 	public void verifyRangeParameterStartsAtDefaultAndCyclesThroughTheFullRangeReturningToTheBeginning() throws Exception
 	{

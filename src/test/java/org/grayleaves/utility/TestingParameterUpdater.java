@@ -11,6 +11,8 @@ public class TestingParameterUpdater<P> implements ParameterUpdater<P>
 {
 
 
+	private Class<P> parameterClass;
+
 	@Override
 	public P getParameter()
 	{
@@ -28,11 +30,12 @@ public class TestingParameterUpdater<P> implements ParameterUpdater<P>
 
 	public void setParameterClass(Class<P> parameterClass)
 	{
+		this.parameterClass = parameterClass; 
 	}
 
 	public Class<P> getParameterClass()
 	{
-		return null;
+		return parameterClass;
 	}
 
 	/**

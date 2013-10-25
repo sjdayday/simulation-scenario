@@ -17,6 +17,7 @@ import org.grayleaves.utility.MockClock;
 import org.grayleaves.utility.OutputFileBuilder;
 import org.grayleaves.utility.Parameter;
 import org.grayleaves.utility.ParameterIterator;
+import org.grayleaves.utility.SimpleParameterIterator;
 import org.grayleaves.utility.ParameterSpace;
 import org.grayleaves.utility.ParameterSpaceMapper;
 import org.grayleaves.utility.ParameterSpaceMapperEnum;
@@ -128,7 +129,7 @@ public class ScenarioSetReplicatorPersistenceTest extends AbstractHistoryTest
 		Parameter<?> parm = list.get(0);
 		list.remove(0);
 		list.add(parm); 
-		iterator = new ParameterIterator(list);
+		iterator = new SimpleParameterIterator(list);
 	}
 	public ScenarioSet<String, PersistentInput> buildScenarioSet(String name, ParameterSpace space) throws ScenarioException
 	{

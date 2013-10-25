@@ -21,20 +21,27 @@ public class RangeParameter<P> extends AbstractParameter<P>
 	private String INTERVAL_TOO_GREAT = "Interval must be less than maximum - minimum";
 	public RangeParameter(String name,	ParameterUpdater<P> parameterUpdater, P  minimum, P maximum, P interval, P defaultValue) throws UnsupportedParameterException
 	{
+		
 		//FIXME casts to type variables not valid
 		setName(name);
 		this.parameterUpdater = parameterUpdater; 
-		//TODO error handling for non-Integers
-		this.minimum = (Integer) minimum; 
-		this.maximum = (Integer) maximum;
-		this.interval = (Integer) interval;
-		this.defaultValue = (Integer) defaultValue; 
+		this.minimum = validate(minimum); 
+		this.maximum = validate(maximum);
+		this.interval = validate(interval);
+		this.defaultValue = validate(defaultValue); 
 		validate(); 
 		reset(); 
 //		index = this.minimum - this.interval; 
 //		hasNext = true; 
 	}
 	
+	private Integer validate(P value)
+	{
+		if (!((value.getClass().equals(Integer.class)) || (value.getClass().equals(int.class)))) 
+			throw new IllegalArgumentException("RangeParameter currently only supports integer ranges.");
+		return (Integer) value;
+	}
+
 	private void validate() throws UnsupportedParameterException
 	{
 		if (minimum >= maximum) throw new UnsupportedParameterException(RANGE_PARAMETER+MIN_MUST_BE_LESS_THAN_MAX); 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Collects the set of {@link Parameter Parameters} that control the behavior of a {@link Model}.  Provides a {@link ParameterIterator} to  
+ * Collects the set of {@link Parameter Parameters} that control the behavior of a {@link Model}.  Provides a {@link SimpleParameterIterator} to  
  * return each {@link ParameterPoint} in the ParameterSpace.  Typically, each ParameterPoint is then used as the set of values defining a {@link Scenario}.
  * @see Scenario
  * @see Parameter
@@ -23,6 +23,9 @@ public class ParameterSpace
 	private String propertiesLocation;
 	private ParameterIterator iterator = null;
 	private String filename; // = "fileNotSpecified";
+	private boolean grid;
+	private int level;
+	private int factor;
 	public ParameterSpace()
 	{
 		parameters = new ArrayList<Parameter<?>>(); 
@@ -75,7 +78,11 @@ public class ParameterSpace
 	}
 	public ParameterIterator iterator()
 	{
-		if (iterator  == null) iterator = new ParameterIterator(parameters);
+		if (iterator  == null) 
+		{
+			if (grid ) iterator = new GridParameterIterator(parameters, null, level, factor);
+			else iterator = new SimpleParameterIterator(parameters);
+		}
 		return iterator;
 	}
 	@SuppressWarnings("rawtypes")
@@ -126,5 +133,11 @@ public class ParameterSpace
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+	public void useGridIteration(int level, int factor)
+	{
+		grid = true; 
+		this.level =level; 
+		this.factor = factor; 
 	}
 }

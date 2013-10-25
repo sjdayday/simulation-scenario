@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.Parameter;
-import org.grayleaves.utility.ParameterIterator;
+import org.grayleaves.utility.SimpleParameterIterator;
 import org.grayleaves.utility.ParameterPoint;
 import org.grayleaves.utility.RangeParameter;
 import org.grayleaves.utility.StaticParameterUpdater;
@@ -17,11 +17,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class ParameterIteratorTest
+public class SimpleParameterIteratorTest
 {
-	private List<Parameter<?>> list;
-	private ParameterIterator iterator; 
-	
+	protected List<Parameter<?>> list;
+	protected ParameterIterator iterator; 
+	 
 	@Before
 	public void setUp() throws Exception
 	{
@@ -36,7 +36,7 @@ public class ParameterIteratorTest
 	@Test
 	public void verifyIteratorDetectsChangeInParameterListSize() throws Exception
 	{
-		iterator = new ParameterIterator(list); 
+		iterator = buildIterator(); 
 		try 
 		{
 			list.remove(2);
@@ -53,7 +53,7 @@ public class ParameterIteratorTest
 	{
 		try 
 		{
-			iterator = new ParameterIterator(new ArrayList<Parameter<?>>()); 
+			iterator = new SimpleParameterIterator(new ArrayList<Parameter<?>>()); 
 			fail("should throw empty list");
 		}
 		catch (IllegalArgumentException e)
@@ -66,7 +66,7 @@ public class ParameterIteratorTest
 	{
 		list = new ArrayList<Parameter<?>>(); 
 		list.add(new ArrayParameter<String>("String Public Name", new TestingParameterUpdater<String>(), new String[]{"fred", "sam"}));
-		iterator = new ParameterIterator(list);
+		iterator = buildIterator();
 		assertTrue(iterator.hasNext());
 		assertEquals("fred", iterator.next().toString()); 
 		assertTrue(iterator.hasNext());
@@ -77,7 +77,7 @@ public class ParameterIteratorTest
 	@Test
 	public void verifyParameterIteratorReturnsParameterPointsVaryingSlowFirstToQuicklyLast() throws Exception
 	{		
-		iterator = new ParameterIterator(list);
+		iterator = buildIterator();
 		assertTrue(iterator.hasNext());
 		ParameterPoint point = iterator.next(); 
 		assertEquals("6, fred, 0", point.toString()); 
@@ -111,7 +111,7 @@ public class ParameterIteratorTest
 	@Test
 	public void verifyRebuildingParameterIteratorStartsOverFromBeginning() throws Exception
 	{
-		iterator = new ParameterIterator(list);
+		iterator = buildIterator();
 		assertTrue(iterator.hasNext());
 		ParameterPoint point = iterator.next(); 
 		assertEquals("6, fred, 0", point.toString()); 
@@ -122,7 +122,7 @@ public class ParameterIteratorTest
 		assertEquals("6, sam, 10", iterator.next().toString());
 		assertEquals("6, sam, 20", iterator.next().toString());
 		assertEquals("6, sam, 30", iterator.next().toString());
-		iterator = new ParameterIterator(list);
+		iterator = buildIterator();
 		assertTrue(iterator.hasNext());
 		point = iterator.next(); 
 		assertEquals("6, fred, 0", point.toString()); 
@@ -134,11 +134,44 @@ public class ParameterIteratorTest
 	@Test
 	public void verifyIteratorReturnsPointsWhoseValueDoesntChange() throws Exception
 	{
-		iterator = new ParameterIterator(list);
+		iterator = buildIterator();
 		ParameterPoint point1 = iterator.next();
 		assertEquals("6, fred, 0", point1.toString());
 		ParameterPoint point2 = iterator.next();
 		assertEquals("6, fred, 10", point2.toString());
 		assertEquals("should still be the same, if new copy of values array is passed","6, fred, 0", point1.toString());
+	}
+	@Test
+	public void verifyTellsFitnessTrackerAboutEachParameterPoint() throws Exception
+	{
+		iterator = buildIterator(); 
+		FitnessTracker tracker = new TestingFitnessTracker(); 
+		iterator.setFitnessTracker(tracker); 
+		ParameterPoint point = iterator.next(); 
+		assertEquals(point, tracker.getBestParameterPoints().get(0)); 
+	}
+	protected ParameterIterator buildIterator()
+	{
+		return new SimpleParameterIterator(list);
+	}
+	private class TestingFitnessTracker implements FitnessTracker
+	{
+
+		private ParameterPoint point;
+
+		@Override
+		public List<ParameterPoint> getBestParameterPoints()
+		{
+			ArrayList<ParameterPoint> points = new ArrayList<ParameterPoint>(); 
+			points.add(point);
+			return points;
+		}
+
+		@Override
+		public void setCurrentParameterPoint(ParameterPoint point)
+		{
+			this.point = point; 
+		}
+		
 	}
 }

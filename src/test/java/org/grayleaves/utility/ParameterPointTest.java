@@ -14,7 +14,7 @@ import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.InvalidStaticParameterException;
 import org.grayleaves.utility.MapEntry;
 import org.grayleaves.utility.Parameter;
-import org.grayleaves.utility.ParameterIterator;
+import org.grayleaves.utility.SimpleParameterIterator;
 import org.grayleaves.utility.ParameterPoint;
 import org.grayleaves.utility.ParameterValue;
 import org.grayleaves.utility.Persister;
@@ -50,7 +50,7 @@ public class ParameterPointTest
 				new String[]{"tom", "sam"}));
 		list.add(new RangeParameter<Integer>("Int2 Public Name", new StaticParameterUpdater<Integer>(Integer.class, "INTEGER_PARM", "org.grayleaves.utility.TestingBean"),
 				0, 30, 10, 20));
-		iterator = new ParameterIterator(list);
+		iterator = new SimpleParameterIterator(list);
 	}
 	@Test
 	public void verifyEqualsAndHashcode() throws Exception
@@ -85,8 +85,8 @@ public class ParameterPointTest
 
 		list2.add(BOOLEAN_PARMB);
 		list2.add(YET_ANOTHER_BOOLEAN_PARMB);
-		ParameterIterator iteratorA = new ParameterIterator(list1);
-		ParameterIterator iteratorB = new ParameterIterator(list2);
+		ParameterIterator iteratorA = new SimpleParameterIterator(list1);
+		ParameterIterator iteratorB = new SimpleParameterIterator(list2);
 		ParameterPoint pointA = iteratorA.next();
 		ParameterPoint pointB = iteratorB.next();
 		assertFalse("although the two parameters have the same values, they are not the same (different names), so equals should fail", pointA.equals(pointB));
@@ -112,8 +112,8 @@ public class ParameterPointTest
 		// add in different order, two copies of the two parameters.  Copies because typically the second set will be rebuilt from a previously persistent ParameterSpace
 		list2.add(ANOTHER_BOOLEAN_PARMB);
 		list2.add(BOOLEAN_PARMB);
-		ParameterIterator iteratorA = new ParameterIterator(list1);
-		ParameterIterator iteratorB = new ParameterIterator(list2);
+		ParameterIterator iteratorA = new SimpleParameterIterator(list1);
+		ParameterIterator iteratorB = new SimpleParameterIterator(list2);
 		ParameterPoint pointA = iteratorA.next();
 //		System.out.println("pointA "+pointA.verboseToString());
 		ParameterPoint pointB = iteratorB.next();

@@ -18,10 +18,10 @@
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<!-- was update -->
 		<property name="hbm2ddl.auto">create</property>
-		<mapping resource="org/grayleaves/utility/Scenario.hbm.xml"></mapping>
-		<mapping resource="org/grayleaves/utility/Input.hbm.xml"></mapping>
-		<mapping resource="org/grayleaves/utility/Model.hbm.xml"></mapping>
-		<mapping resource="org/grayleaves/utility/ScenarioSet.hbm.xml"></mapping>
-		<mapping resource="org/grayleaves/utility/ParameterSpace.hbm.xml"></mapping>
+		<mapping resource="Scenario.hbm.xml"></mapping>
+		<mapping resource="Input.hbm.xml"></mapping>
+		<mapping resource="Model.hbm.xml"></mapping>
+		<mapping resource="ScenarioSet.hbm.xml"></mapping>
+		<mapping resource="ParameterSpace.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>

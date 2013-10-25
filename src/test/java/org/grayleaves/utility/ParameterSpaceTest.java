@@ -12,7 +12,6 @@ import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.InvalidPropertiesException;
 import org.grayleaves.utility.InvalidStaticParameterException;
 import org.grayleaves.utility.ModelProperties;
-import org.grayleaves.utility.ParameterIterator;
 import org.grayleaves.utility.ParameterPoint;
 import org.grayleaves.utility.ParameterSpace;
 import org.grayleaves.utility.ParameterSpacePersister;

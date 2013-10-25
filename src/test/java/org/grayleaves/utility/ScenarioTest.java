@@ -44,7 +44,7 @@ public class ScenarioTest
 			UnsupportedParameterException
 	{
 		list = buildParameterList();
-		iterator = new ParameterIterator(list);
+		iterator = new SimpleParameterIterator(list);
 		return iterator; 
 	}
 	public List<Parameter<?>> buildParameterList() throws InvalidStaticParameterException,

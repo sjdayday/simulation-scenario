@@ -13,7 +13,7 @@ import org.grayleaves.utility.ArrayParameter;
 import org.grayleaves.utility.BooleanParameterConstraint;
 import org.grayleaves.utility.DoubleParameterConstraint;
 import org.grayleaves.utility.Parameter;
-import org.grayleaves.utility.ParameterIterator;
+import org.grayleaves.utility.SimpleParameterIterator;
 import org.grayleaves.utility.ParameterValue;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class ParameterConstraintTest
 		list = new ArrayList<Parameter<?>>(); 
 		list.add(parm1);
 		list.add(parm2);
-		iterator = new ParameterIterator(list); 
+		iterator = new SimpleParameterIterator(list); 
 		constraint = new BooleanParameterConstraint(); 
 		constraint.parameter1(parm1);
 		constraint.parameter2(parm2); 
@@ -78,7 +78,7 @@ public class ParameterConstraintTest
 		list = new ArrayList<Parameter<?>>(); 
 		list.add(parmd1);
 		list.add(parmd2);
-		iterator = new ParameterIterator(list); 
+		iterator = new SimpleParameterIterator(list); 
 		doubleConstraint = new DoubleParameterConstraint(); 
 		doubleConstraint.parameter1(parmd1);
 		doubleConstraint.parameter2(parmd2); 

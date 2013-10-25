@@ -13,7 +13,6 @@ import org.grayleaves.utility.MockClock;
 import org.grayleaves.utility.Model;
 import org.grayleaves.utility.OutputFileBuilder;
 import org.grayleaves.utility.OutputFileBuilderException;
-import org.grayleaves.utility.ParameterIterator;
 import org.grayleaves.utility.ParameterPoint;
 import org.grayleaves.utility.Scenario;
 import org.grayleaves.utility.ScenarioAnalyzer;
